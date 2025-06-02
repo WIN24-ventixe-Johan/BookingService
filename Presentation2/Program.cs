@@ -11,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+var connectionString = Environment.GetEnvironmentVariable("SQLCONNSTR_SqlConnection");
+builder.Services.AddDbContext<DataContext>(x =>x.UseSqlServer(connectionString));
+
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 
